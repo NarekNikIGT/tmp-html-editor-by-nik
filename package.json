@@ -1,0 +1,20 @@
+{
+  "name": "com.nikhigt.tmphtmleditor",
+  "version": "1.0.1",
+  "displayName": "TMP HTML Editor by Nik.H.",
+  "description": "The TMP HTML editor allows you to insert HTML tags into your text without HTML knowledge.",
+  "documentationUrl": "https://developers.confluence.igt.com/spaces/viewspace.action?key=~nhovsepyan",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "keywords": [
+    "keyword1",
+    "keyword2",
+    "keyword3"
+  ],
+  "author": {
+    "name": "Narek Nik Hovsepyan",
+    "email": "Narek.Hovsepyan@igt.com",
+    "url": "https://developers.confluence.igt.com/spaces/viewspace.action?key=~nhovsepyan"
+  },
+  "type": "tool"
+}
