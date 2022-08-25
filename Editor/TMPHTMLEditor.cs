@@ -1,11 +1,14 @@
-﻿//Narek Hovsepyan 2022 TMP HTMl editor
+﻿#if UNITY_EDITOR
+//Narek Hovsepyan 2022 TMP HTMl editor
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
 public class TMPHTMLEditor : EditorWindow
-{    
+{
+    
     string _text = "Your Text";    
     string _resultView;
     Color _color;
@@ -27,7 +30,8 @@ public class TMPHTMLEditor : EditorWindow
     }
 
     void OnGUI()
-    {        
+    {   
+
         GUILayout.Label("Text Mesh Pro HTML Editor by Narek Nik.H.", EditorStyles.boldLabel);
         GUILayout.Space(10);
         GUILayout.Label("Text to modify");
@@ -136,3 +140,4 @@ public class TMPHTMLEditor : EditorWindow
         GUILayout.EndScrollView();
     }
 }
+#endif
