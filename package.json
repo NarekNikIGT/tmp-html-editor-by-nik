@@ -16,5 +16,9 @@
     "email": "Narek.Hovsepyan@igt.com",
     "url": "https://developers.confluence.igt.com/spaces/viewspace.action?key=~nhovsepyan"
   },
-  "type": "tool"
+  "type": "tool",
+  
+  "publishConfig": {
+    "registry": "http://gears.insideigt.com:9099/npm/SpieloGrazCoreGames/"
+  }
 }
