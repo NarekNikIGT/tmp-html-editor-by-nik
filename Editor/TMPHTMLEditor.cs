@@ -85,7 +85,7 @@ public class TMPHTMLEditor : EditorWindow
         _lineHeight = EditorGUILayout.TextField("Line Height in % (Dynamic)", _lineHeight);
         if (GUILayout.Button("Line Height tag"))
         {
-            _text = EditorGUILayout.TextField("", "<line-height="+ _lineHeight + "%>" + _text + "</voffset>");
+            _text = EditorGUILayout.TextField("", "<line-height="+ _lineHeight + "%>" + _text);
         }
         GUILayout.Label("============================================");
         if (GUILayout.Button("Bold tag - Apply bold"))
