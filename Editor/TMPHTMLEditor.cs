@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 //Narek Hovsepyan 2022 TMP HTMl editor
 using System.Collections;
 using System.Collections.Generic;
@@ -12,13 +12,13 @@ public class TMPHTMLEditor : EditorWindow
     string _text = "Your Text";    
     string _resultView;
     Color _color;
-    string _fontSizePoints = "30";
-    string _fontSizeProcent = "120";
+    float _fontSizePoints = 30;
+    float _fontSizeProcent = 120;
     string _fontName;
     string _fontMaterial;
-    string _lineHeight;
-    string _characterSpacing;
-    string _verticalOffset;
+    float _lineHeight;
+    float _characterSpacing;
+    float _verticalOffset;
     Vector2 scrollPosition = Vector2.zero;
     int selGridInt = 0;
     string[] selStrings = { "Font Size in points (default,static)", "Font Size in % from TMP Font Size (Dynamic)" };
@@ -47,7 +47,7 @@ public class TMPHTMLEditor : EditorWindow
         GUILayout.Space(10);
         if (selGridInt == 0)
         {
-            _fontSizePoints = EditorGUILayout.TextField("Font Size in points(Static)", _fontSizePoints);
+            _fontSizePoints = EditorGUILayout.FloatField("Font Size in points(Static)", _fontSizePoints);
             if (GUILayout.Button("Size tag - Size in points (default)"))
             {
                 _text = EditorGUILayout.TextField("", "<size=" + _fontSizePoints + ">" + _text + "</size>");
@@ -55,7 +55,7 @@ public class TMPHTMLEditor : EditorWindow
         }
         else
         {
-            _fontSizeProcent = EditorGUILayout.TextField("Font Size in % (Dynamic)", _fontSizeProcent);
+            _fontSizeProcent = EditorGUILayout.FloatField("Font Size in % (Dynamic)", _fontSizeProcent);
             if (GUILayout.Button("Size tag - Size in % from font size"))
             {
                 _text = EditorGUILayout.TextField("", "<size=" + _fontSizeProcent + "%>" + _text + "</size>");
@@ -72,17 +72,17 @@ public class TMPHTMLEditor : EditorWindow
             _text = EditorGUILayout.TextField("", "<sprite name=" + '\"' + _text + '\"' + ">");
         }
         GUILayout.Label("============================================");
-        _characterSpacing = EditorGUILayout.TextField("Character Spacing in points", _characterSpacing);
+        _characterSpacing = EditorGUILayout.FloatField("Character Spacing in points", _characterSpacing);
         if (GUILayout.Button("Character Spacing tag"))
         {
             _text = EditorGUILayout.TextField("", "<cspace="+ _characterSpacing + ">" + _text + "</cspace>");
         }
-        _verticalOffset = EditorGUILayout.TextField("Vertical Offset in em", _verticalOffset);
+        _verticalOffset = EditorGUILayout.FloatField("Vertical Offset in em", _verticalOffset);
         if (GUILayout.Button("Vertical Offset tag"))
         {
             _text = EditorGUILayout.TextField("", "<voffset=" + _verticalOffset + "em>" + _text + "</voffset>");
         }
-        _lineHeight = EditorGUILayout.TextField("Line Height in % (Dynamic)", _lineHeight);
+        _lineHeight = EditorGUILayout.FloatField("Line Height in % (Dynamic)", _lineHeight);
         if (GUILayout.Button("Line Height tag"))
         {
             _text = EditorGUILayout.TextField("", "<line-height="+ _lineHeight + "%>" + _text);
