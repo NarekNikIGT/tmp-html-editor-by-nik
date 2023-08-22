@@ -17,11 +17,18 @@ public class TMPHTMLEditor : EditorWindow
     string _fontName;
     string _fontMaterial;
     float _lineHeight;
+    float _rotate;
     float _characterSpacing;
     float _verticalOffset;
+    private bool showTabContent;
     Vector2 scrollPosition = Vector2.zero;
     int selGridInt = 0;
     string[] selStrings = { "Font Size in points (default,static)", "Font Size in % from TMP Font Size (Dynamic)" };
+    private const string _helpBox = "1. Add rotate tag in front of your text" +
+                                    "\n2. Enable RTL in TextMeshPro - Text" +
+                                    "\n3. Rotate game object to 90° by Z axsis" + 
+                                    "\n4. Use Character space for line height" + 
+                                    "\n5. Use Line height for character space";
 
     [MenuItem("Window/TextMeshPro/TMP HTML editor by Nik.H")]
     public static void ShowWindow()
@@ -29,10 +36,22 @@ public class TMPHTMLEditor : EditorWindow
         GetWindow<TMPHTMLEditor>("TMP HTML Editor");
     }
 
+    private float DrawFloatField(string labelName, float value, float width)
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label(labelName);
+        var newValue  = EditorGUILayout.FloatField(value, GUILayout.Width(width));
+        EditorGUILayout.EndHorizontal();
+        return newValue;
+    }
     void OnGUI()
     {   
-
-        GUILayout.Label("Text Mesh Pro HTML Editor by Narek Nik.H.", EditorStyles.boldLabel);
+        GUILayout.Space(10);
+        GUIStyle headLine = new GUIStyle(GUI.skin.label);
+        headLine.fontSize = 14;
+        headLine.fontStyle = FontStyle.Bold;
+        headLine.alignment = TextAnchor.MiddleCenter;
+        GUILayout.Label("Text Mesh Pro HTML Editor by Narek Nik.H.", headLine);
         GUILayout.Space(10);
         GUILayout.Label("Text to modify");
         _text = EditorGUILayout.TextArea(_text, GUILayout.Height(50));        
@@ -47,7 +66,7 @@ public class TMPHTMLEditor : EditorWindow
         GUILayout.Space(10);
         if (selGridInt == 0)
         {
-            _fontSizePoints = EditorGUILayout.FloatField("Font Size in points(Static)", _fontSizePoints);
+            _fontSizePoints = DrawFloatField("Font Size in points(Static)", _fontSizePoints, 60);
             if (GUILayout.Button("Size tag - Size in points (default)"))
             {
                 _text = EditorGUILayout.TextField("", "<size=" + _fontSizePoints + ">" + _text + "</size>");
@@ -55,7 +74,7 @@ public class TMPHTMLEditor : EditorWindow
         }
         else
         {
-            _fontSizeProcent = EditorGUILayout.FloatField("Font Size in % (Dynamic)", _fontSizeProcent);
+            _fontSizeProcent = DrawFloatField("Font Size in % (Dynamic)", _fontSizeProcent, 60);
             if (GUILayout.Button("Size tag - Size in % from font size"))
             {
                 _text = EditorGUILayout.TextField("", "<size=" + _fontSizeProcent + "%>" + _text + "</size>");
@@ -72,22 +91,40 @@ public class TMPHTMLEditor : EditorWindow
             _text = EditorGUILayout.TextField("", "<sprite name=" + '\"' + _text + '\"' + ">");
         }
         GUILayout.Label("============================================");
-        _characterSpacing = EditorGUILayout.FloatField("Character Spacing in points", _characterSpacing);
+        
+        _characterSpacing = DrawFloatField("Character Spacing in points", _characterSpacing, 60);
         if (GUILayout.Button("Character Spacing tag"))
         {
             _text = EditorGUILayout.TextField("", "<cspace="+ _characterSpacing + ">" + _text + "</cspace>");
         }
-        _verticalOffset = EditorGUILayout.FloatField("Vertical Offset in em", _verticalOffset);
+        _verticalOffset = DrawFloatField("Vertical Offset in em", _verticalOffset, 60);
         if (GUILayout.Button("Vertical Offset tag"))
         {
             _text = EditorGUILayout.TextField("", "<voffset=" + _verticalOffset + "em>" + _text + "</voffset>");
         }
-        _lineHeight = EditorGUILayout.FloatField("Line Height in % (Dynamic)", _lineHeight);
+        _lineHeight = DrawFloatField("Line Height in % (Dynamic)", _lineHeight, 60);
         if (GUILayout.Button("Line Height tag"))
         {
             _text = EditorGUILayout.TextField("", "<line-height="+ _lineHeight + "%>" + _text);
         }
+        _rotate = DrawFloatField("Character rotation", _rotate, 60);
+        if (GUILayout.Button("Rotation tag"))
+        {
+            _text = EditorGUILayout.TextField("", "<rotate="+ _rotate + ">" + _text +"</rotate>");
+        }
         GUILayout.Label("============================================");
+        showTabContent = EditorGUILayout.Foldout(showTabContent, "How to add vertcal text ?");
+        if (showTabContent)
+        {
+            EditorGUILayout.HelpBox(_helpBox, MessageType.Info);
+        }
+        
+        GUIContent captureButtonContent = new GUIContent("   Vertical text", EditorGUIUtility.IconContent("d_align_vertically").image);
+        if (GUILayout.Button(captureButtonContent))
+        {
+            _text = EditorGUILayout.TextField("", "<rotate=-90>");
+        }
+        GUILayout.Space(10);
         if (GUILayout.Button("Bold tag - Apply bold"))
         {
             _text = EditorGUILayout.TextField("", "<b>" + _text + "</b>");
